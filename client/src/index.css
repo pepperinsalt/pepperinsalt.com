@@ -101,6 +101,10 @@
   a[href] {
     @apply cursor-pointer;
   }
+  :focus-visible {
+    outline: 3px solid var(--kc-link);
+    outline-offset: 3px;
+  }
 }
 
 @layer components {
@@ -409,6 +413,40 @@
     font-size: 0.95rem;
     color: #555;
     line-height: 1.7;
+  }
+
+  /* ---- ACCESSIBILITY ---- */
+  .screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+  }
+
+  .skip-link.screen-reader-text:focus {
+    background-color: var(--kc-link);
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    clip-path: none;
+    color: #fff;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    height: auto;
+    left: 1rem;
+    line-height: normal;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    top: 1rem;
+    width: auto;
+    z-index: 100000;
   }
 
   /* ---- CONTACT FORM ---- */
