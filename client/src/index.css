@@ -101,9 +101,52 @@
   a[href] {
     @apply cursor-pointer;
   }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    outline: 3px solid var(--kc-link);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 }
 
 @layer components {
+  /* ---- ACCESSIBILITY ---- */
+  .screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+  }
+
+  .skip-link.screen-reader-text:focus {
+    background-color: var(--kc-bg);
+    clip: auto !important;
+    clip-path: none;
+    color: var(--kc-text);
+    display: block;
+    font-size: 1rem;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000; /* Above fixed elements */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    box-shadow: var(--kc-shadow);
+    border: 2px solid var(--kc-link);
+    border-radius: 4px;
+  }
+
   .container {
     width: 100%;
     max-width: 1200px;
