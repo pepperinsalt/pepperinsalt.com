@@ -34,17 +34,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ background: "var(--kc-bg)", minHeight: "100vh" }}>
+      {/* Skip Link */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:p-4 focus:bg-[#c8102e] focus:text-white focus:rounded-md focus:font-bold focus:outline-none focus:ring-4 focus:ring-black focus:ring-offset-2"
+        style={{ fontFamily: "'Inter', sans-serif" }}
+      >
+        Skip to main content
+      </a>
+
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
-      <div className="container" style={{ paddingTop: "48px", paddingBottom: "64px" }}>
+      <div
+        className="container"
+        style={{ paddingTop: "48px", paddingBottom: "64px" }}
+      >
         {/* Navigation */}
-        <nav className="kc-nav">
+        <nav className="kc-nav" aria-label="Primary Navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={location === link.href ? "active" : ""}
+              aria-current={location === link.href ? "page" : undefined}
             >
               {link.label}
             </Link>
@@ -52,7 +65,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Page Content */}
-        {children}
+        <main id="main" tabIndex={-1} style={{ outline: "none" }}>
+          {children}
+        </main>
 
         {/* Footer */}
         <footer
@@ -76,8 +91,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <a
               href="mailto:kacy@kacyculpepper.digital"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fas fa-envelope" style={{ marginRight: "6px" }} />
               Email
@@ -87,8 +106,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fab fa-linkedin" style={{ marginRight: "6px" }} />
               LinkedIn
@@ -98,8 +121,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fab fa-github" style={{ marginRight: "6px" }} />
               GitHub
