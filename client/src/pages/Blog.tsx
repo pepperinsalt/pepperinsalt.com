@@ -4,7 +4,7 @@
  * Posts are static content representing the kind of writing Kacy would publish
  */
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
 
@@ -71,23 +71,14 @@ const posts = [
   },
 ];
 
-const categories = [
-  "All",
-  "Email Development",
-  "Automation",
-  "Strategy",
-  "Web Development",
-  "Career",
-];
+const categories = ["All", "Email Development", "Automation", "Strategy", "Web Development", "Career"];
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered = useMemo(() => {
-    return activeCategory === "All"
-      ? posts
-      : posts.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+  const filtered = activeCategory === "All"
+    ? posts
+    : posts.filter((p) => p.category === activeCategory);
 
   return (
     <Layout>
@@ -102,15 +93,8 @@ export default function Blog() {
         >
           Blog
         </h1>
-        <p
-          style={{
-            fontSize: "1.1rem",
-            color: "var(--kc-accent)",
-            marginBottom: 0,
-          }}
-        >
-          Thoughts on email marketing, automation, web development, and the
-          craft of technical marketing.
+        <p style={{ fontSize: "1.1rem", color: "var(--kc-accent)", marginBottom: 0 }}>
+          Thoughts on email marketing, automation, web development, and the craft of technical marketing.
         </p>
       </header>
 
@@ -130,10 +114,8 @@ export default function Blog() {
             style={{
               padding: "6px 16px",
               borderRadius: "20px",
-              border:
-                activeCategory === cat ? "none" : "1px solid var(--kc-border)",
-              background:
-                activeCategory === cat ? "var(--kc-link)" : "transparent",
+              border: activeCategory === cat ? "none" : "1px solid var(--kc-border)",
+              background: activeCategory === cat ? "var(--kc-link)" : "transparent",
               color: activeCategory === cat ? "#fff" : "var(--kc-accent)",
               fontSize: "0.85rem",
               fontWeight: 500,
@@ -157,13 +139,7 @@ export default function Blog() {
       >
         {filtered.map((post) => (
           <article key={post.slug} className="blog-card">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span className="blog-card-date">{post.date}</span>
               <span
                 style={{
@@ -180,15 +156,11 @@ export default function Blog() {
               </span>
             </div>
 
-            <h2
-              style={{
-                fontFamily: "'Libre Baskerville', serif",
-                fontSize: "1.2rem",
-                margin: "8px 0 0",
-                lineHeight: 1.35,
-              }}
-            >
-              <span className="blog-card-title" style={{ cursor: "pointer" }}>
+            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "1.2rem", margin: "8px 0 0", lineHeight: 1.35 }}>
+              <span
+                className="blog-card-title"
+                style={{ cursor: "pointer" }}
+              >
                 {post.title}
               </span>
             </h2>
@@ -207,11 +179,7 @@ export default function Blog() {
             >
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                 {post.tags.slice(0, 2).map((tag) => (
-                  <span
-                    key={tag}
-                    className="kc-tag"
-                    style={{ fontSize: "0.75rem", padding: "3px 10px" }}
-                  >
+                  <span key={tag} className="kc-tag" style={{ fontSize: "0.75rem", padding: "3px 10px" }}>
                     {tag}
                   </span>
                 ))}
@@ -260,14 +228,7 @@ export default function Blog() {
           >
             // Stay Updated
           </div>
-          <h3
-            style={{
-              fontFamily: "'Libre Baskerville', serif",
-              fontSize: "1.3rem",
-              margin: "0 0 8px",
-              color: "#fff",
-            }}
-          >
+          <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "1.3rem", margin: "0 0 8px", color: "#fff" }}>
             Get new posts in your inbox
           </h3>
           <p style={{ fontSize: "0.9rem", opacity: 0.85, margin: 0 }}>
