@@ -132,17 +132,36 @@ function vitePluginManusDebugCollector(): Plugin {
         }
 
         let body = "";
+        let bodySize = 0;
+        const MAX_BODY_SIZE = 5 * 1024 * 1024; // 5MB limit
+
         req.on("data", (chunk) => {
+          bodySize += chunk.length;
+          if (bodySize > MAX_BODY_SIZE) {
+            if (!res.headersSent) {
+              res.writeHead(413, { "Content-Type": "application/json" });
+              res.end(
+                JSON.stringify({ success: false, error: "Payload Too Large" }),
+              );
+            }
+            req.destroy();
+            return;
+          }
           body += chunk.toString();
         });
 
         req.on("end", () => {
+          if (bodySize > MAX_BODY_SIZE) {
+            return;
+          }
           try {
             const payload = JSON.parse(body);
             handlePayload(payload);
           } catch (e) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ success: false, error: String(e) }));
+            if (!res.headersSent) {
+              res.writeHead(400, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ success: false, error: String(e) }));
+            }
           }
         });
       });
@@ -162,7 +181,10 @@ function vitePluginStorageProxy(): Plugin {
           return;
         }
 
-        const forgeBaseUrl = (process.env.BUILT_IN_FORGE_API_URL || "").replace(/\/+$/, "");
+        const forgeBaseUrl = (process.env.BUILT_IN_FORGE_API_URL || "").replace(
+          /\/+$/,
+          "",
+        );
         const forgeKey = process.env.BUILT_IN_FORGE_API_KEY;
 
         if (!forgeBaseUrl || !forgeKey) {
@@ -172,7 +194,10 @@ function vitePluginStorageProxy(): Plugin {
         }
 
         try {
-          const forgeUrl = new URL("v1/storage/presign/get", forgeBaseUrl + "/");
+          const forgeUrl = new URL(
+            "v1/storage/presign/get",
+            forgeBaseUrl + "/",
+          );
           forgeUrl.searchParams.set("path", key);
 
           const forgeResp = await fetch(forgeUrl, {
@@ -203,7 +228,14 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  vitePluginStorageProxy(),
+];
 
 export default defineConfig({
   plugins,
