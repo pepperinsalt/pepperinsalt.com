@@ -238,6 +238,9 @@ const plugins = [
 ];
 
 export default defineConfig({
+  test: {
+    environment: "jsdom",
+  },
   plugins,
   resolve: {
     alias: {
