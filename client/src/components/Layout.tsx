@@ -34,17 +34,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ background: "var(--kc-bg)", minHeight: "100vh" }}>
+      <a href="#main" className="skip-link">
+        Skip to main content
+      </a>
+
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
       <div className="container" style={{ paddingTop: "48px", paddingBottom: "64px" }}>
         {/* Navigation */}
-        <nav className="kc-nav">
+        <nav className="kc-nav" aria-label="Primary Navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={location === link.href ? "active" : ""}
+              aria-current={location === link.href ? "page" : undefined}
             >
               {link.label}
             </Link>
@@ -52,7 +57,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Page Content */}
-        {children}
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
 
         {/* Footer */}
         <footer
