@@ -34,10 +34,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ background: "var(--kc-bg)", minHeight: "100vh" }}>
+      <a
+        href="#main"
+        className="absolute -translate-y-full focus:translate-y-0 -left-[9999px] focus:left-4 top-4 z-[100000] text-white px-6 py-4 rounded-md font-bold text-base"
+        style={{ background: "var(--color-primary)" }}
+      >
+        Skip to main content
+      </a>
+
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
-      <div className="container" style={{ paddingTop: "48px", paddingBottom: "64px" }}>
+      <div
+        className="container"
+        style={{ paddingTop: "48px", paddingBottom: "64px" }}
+      >
         {/* Navigation */}
         <nav className="kc-nav">
           {navLinks.map((link) => (
@@ -52,7 +63,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Page Content */}
-        {children}
+        <main id="main" tabIndex={-1} className="focus:outline-none">
+          {children}
+        </main>
 
         {/* Footer */}
         <footer
@@ -76,8 +89,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <a
               href="mailto:kacy@kacyculpepper.digital"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fas fa-envelope" style={{ marginRight: "6px" }} />
               Email
@@ -87,8 +104,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fab fa-linkedin" style={{ marginRight: "6px" }} />
               LinkedIn
@@ -98,8 +119,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--kc-link)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--kc-accent)")
+              }
             >
               <i className="fab fa-github" style={{ marginRight: "6px" }} />
               GitHub
