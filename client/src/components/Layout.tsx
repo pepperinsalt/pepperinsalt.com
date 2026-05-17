@@ -34,17 +34,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ background: "var(--kc-bg)", minHeight: "100vh" }}>
+      {/* Skip Link */}
+      <a
+        href="#main-content"
+        className="absolute -translate-y-full focus:translate-y-0 -left-[9999px] focus:left-4 top-4 z-[100000] bg-white text-[var(--kc-link)] px-4 py-3 rounded-md font-bold shadow-md border border-[var(--kc-border)]"
+      >
+        Skip to content
+      </a>
+
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
       <div className="container" style={{ paddingTop: "48px", paddingBottom: "64px" }}>
         {/* Navigation */}
-        <nav className="kc-nav">
+        <nav className="kc-nav" aria-label="Primary Navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={location === link.href ? "active" : ""}
+              {...(location === link.href ? { "aria-current": "page" } : {})}
             >
               {link.label}
             </Link>
@@ -52,7 +61,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Page Content */}
-        {children}
+        <main id="main-content" tabIndex={-1} className="outline-none focus:outline-none">
+          {children}
+        </main>
 
         {/* Footer */}
         <footer
