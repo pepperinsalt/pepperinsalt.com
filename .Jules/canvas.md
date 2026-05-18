@@ -1,0 +1,4 @@
+## 2025-02-24 — WordPress Skip-Link Accessibility Pattern in React
+
+**Learning:** When adapting WordPress accessibility patterns to a React/Tailwind application, relying on `.screen-reader-text` or similar missing CSS classes leads to unstyled elements. In addition, using `focus:not-sr-only` along with `sr-only` can cause layout shifts or positioning issues depending on where the element is rendered.
+**Action:** Use native Tailwind utility classes directly on the skip-link to control visibility and positioning explicitly (e.g. `absolute -translate-y-full focus:translate-y-0 -left-[9999px] focus:left-4 top-4 z-[100000]`). The main content area must have an id matching the link `href` (like `#main`), `tabIndex={-1}`, and `className="focus:outline-none"` so focus can be correctly managed without showing default browser outlines when targeted by the skip link.
