@@ -1,0 +1,3 @@
+## 2024-05-20 — Skip Link Accessibility Pattern in Tailwind
+**Learning:** When recreating WordPress skip-link accessibility patterns in a React/Tailwind setup, using `sr-only` and toggling with `focus:not-sr-only` can cause positioning conflicts and layout shifts.
+**Action:** Instead, explicitly handle positioning and visibility on focus using utility classes like `absolute -translate-y-full focus:translate-y-0 -left-[9999px] focus:left-4 top-4 z-[100000]`. Ensure the target `<main>` tag has `tabIndex={-1}` and `outline: none` on focus to maintain keyboard functionality without visible focus rings.
