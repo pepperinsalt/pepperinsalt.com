@@ -34,6 +34,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ background: "var(--kc-bg)", minHeight: "100vh" }}>
+      {/* Skip Link (Accessibility Pattern) */}
+      <a
+        href="#main"
+        className="absolute -translate-y-full focus:translate-y-0 -left-[9999px] focus:left-4 top-4 z-[100000] bg-[var(--kc-link)] text-white px-6 py-4 rounded-md font-bold transition-transform"
+      >
+        Skip to main content
+      </a>
+
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
@@ -52,7 +60,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Page Content */}
-        {children}
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
 
         {/* Footer */}
         <footer
