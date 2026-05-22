@@ -1,0 +1,3 @@
+## 2024-05-22 — Adding a WordPress-style Skip Link in React
+**Learning:** React applications built with modern tools often omit standard accessibility patterns like skip-to-content links commonly found in standard WordPress themes.
+**Action:** Implement a skip link as the first focusable element inside the layout to allow keyboard users to easily bypass navigation, utilizing Tailwind's `sr-only` and `focus:not-sr-only` equivalent logic while avoiding absolute positioning conflicts mentioned in memory. We'll wrap the `children` in a `<main id="main" tabIndex={-1} className="focus:outline-none">` tag to serve as the target.
