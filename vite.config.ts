@@ -13,6 +13,107 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 const PROJECT_ROOT = import.meta.dirname;
 const LOG_DIR = path.join(PROJECT_ROOT, ".manus-logs");
+const ENTRIES_FILE = path.join(PROJECT_ROOT, "data", "entries.json");
+
+// =============================================================================
+// Life.Log Entries API - Vite Dev Plugin
+// Serves /api/entries CRUD so the dashboard works in dev without Express
+// =============================================================================
+
+function ensureEntriesFile() {
+  const dir = path.dirname(ENTRIES_FILE);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  if (!fs.existsSync(ENTRIES_FILE)) fs.writeFileSync(ENTRIES_FILE, "[]", "utf-8");
+}
+
+function readEntriesSync() {
+  try {
+    return JSON.parse(fs.readFileSync(ENTRIES_FILE, "utf-8"));
+  } catch {
+    return [];
+  }
+}
+
+function writeEntriesSync(entries: unknown[]) {
+  fs.writeFileSync(ENTRIES_FILE, JSON.stringify(entries, null, 2), "utf-8");
+}
+
+function readBody(req: Parameters<ReturnType<ViteDevServer["middlewares"]["use"]>>[0]): Promise<unknown> {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk: Buffer) => { body += chunk.toString(); });
+    req.on("end", () => {
+      try { resolve(body ? JSON.parse(body) : null); }
+      catch (e) { reject(e); }
+    });
+    req.on("error", reject);
+  });
+}
+
+function vitePluginEntriesApi(): Plugin {
+  ensureEntriesFile();
+  return {
+    name: "entries-api",
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url || "";
+        if (!url.startsWith("/api/entries")) return next();
+
+        res.setHeader("Content-Type", "application/json");
+        const suffix = url.replace("/api/entries", "").replace(/^\//, "").split("?")[0];
+
+        try {
+          if (req.method === "GET" && !suffix) {
+            const entries = readEntriesSync();
+            entries.sort((a: Record<string, string>, b: Record<string, string>) => b.date.localeCompare(a.date));
+            res.end(JSON.stringify(entries));
+            return;
+          }
+
+          if (req.method === "GET" && suffix) {
+            const entries = readEntriesSync();
+            const entry = entries.find((e: Record<string, string>) => e.date === suffix);
+            if (entry) { res.end(JSON.stringify(entry)); }
+            else { res.statusCode = 404; res.end(JSON.stringify({ error: "Not found" })); }
+            return;
+          }
+
+          if (req.method === "POST") {
+            const body = await readBody(req) as Record<string, unknown>;
+            const entries = readEntriesSync();
+            const idx = entries.findIndex((e: Record<string, string>) => e.date === body.date);
+            const now = new Date().toISOString();
+            if (idx >= 0) {
+              entries[idx] = { ...entries[idx], ...body, updatedAt: now };
+              writeEntriesSync(entries);
+              res.end(JSON.stringify(entries[idx]));
+            } else {
+              const newEntry = { id: crypto.randomUUID(), ...body, createdAt: now, updatedAt: now };
+              entries.push(newEntry);
+              writeEntriesSync(entries);
+              res.statusCode = 201;
+              res.end(JSON.stringify(newEntry));
+            }
+            return;
+          }
+
+          if (req.method === "DELETE" && suffix) {
+            const entries = readEntriesSync();
+            writeEntriesSync(entries.filter((e: Record<string, string>) => e.date !== suffix));
+            res.end(JSON.stringify({ ok: true }));
+            return;
+          }
+        } catch (e) {
+          res.statusCode = 500;
+          res.end(JSON.stringify({ error: String(e) }));
+          return;
+        }
+
+        next();
+      });
+    },
+  };
+}
 const MAX_LOG_SIZE_BYTES = 1 * 1024 * 1024; // 1MB per log file
 const TRIM_TARGET_BYTES = Math.floor(MAX_LOG_SIZE_BYTES * 0.6); // Trim to 60% to avoid constant re-trimming
 
@@ -235,6 +336,7 @@ const plugins = [
   vitePluginManusRuntime(),
   vitePluginManusDebugCollector(),
   vitePluginStorageProxy(),
+  vitePluginEntriesApi(),
 ];
 
 export default defineConfig({
