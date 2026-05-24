@@ -11,6 +11,7 @@ import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/projects" component={Projects} />
       <Route path="/blog" component={Blog} />
       <Route path="/contact" component={Contact} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
