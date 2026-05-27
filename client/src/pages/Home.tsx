@@ -20,11 +20,11 @@ const TERMINAL_LINES = [
 ];
 
 const INSIGHTS = [
-  "\"Personalization at scale is not a feature — it's infrastructure.\"",
-  "\"The best email is the one that never feels like an email.\"",
-  "\"Deliverability is the unsexy foundation of every campaign.\"",
-  "\"A/B testing without a hypothesis is just guessing with extra steps.\"",
-  "\"Bulletproof HTML means nothing if your subject line fails.\"",
+  '"Personalization at scale is not a feature — it\'s infrastructure."',
+  '"The best email is the one that never feels like an email."',
+  '"Deliverability is the unsexy foundation of every campaign."',
+  '"A/B testing without a hypothesis is just guessing with extra steps."',
+  '"Bulletproof HTML means nothing if your subject line fails."',
 ];
 
 const TRUSTED = [
@@ -33,6 +33,15 @@ const TRUSTED = [
   { name: "Simon Malls", desc: "Email Campaigns" },
   { name: "Arenawins", desc: "Digital Marketing" },
   { name: "Altaracks", desc: "Web Support & Ad Ops, 2026–Present" },
+];
+
+const SKILLS_DATA = [
+  { label: "HTML / CSS (Email)", pct: 98 },
+  { label: "AMPscript / Liquid", pct: 92 },
+  { label: "CRM & List Hygiene", pct: 88 },
+  { label: "Automation Logic", pct: 95 },
+  { label: "Adobe CC", pct: 85 },
+  { label: "WordPress / PHP", pct: 80 },
 ];
 
 function TerminalCard() {
@@ -66,14 +75,30 @@ function TerminalCard() {
       className="bento-card terminal-card bento-card-wide"
       style={{ minHeight: "220px" }}
     >
-      <div className="terminal-inner" style={{ flexDirection: "column", alignItems: "flex-start", gap: "4px" }}>
+      <div
+        className="terminal-inner"
+        style={{
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: "4px",
+        }}
+      >
         {displayed.map((line, i) => (
-          <div key={i} style={{ opacity: 0.7 }}>{line}</div>
+          <div key={i} style={{ opacity: 0.7 }}>
+            {line}
+          </div>
         ))}
         {lineIndex < TERMINAL_LINES.length && (
           <div>
             {currentLine}
-            <span style={{ animation: "blink 1s step-end infinite", color: "var(--kc-terminal-text)" }}>|</span>
+            <span
+              style={{
+                animation: "blink 1s step-end infinite",
+                color: "var(--kc-terminal-text)",
+              }}
+            >
+              |
+            </span>
           </div>
         )}
       </div>
@@ -124,32 +149,40 @@ function SkillBars() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.3 },
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
 
-  const skills = [
-    { label: "HTML / CSS (Email)", pct: 98 },
-    { label: "AMPscript / Liquid", pct: 92 },
-    { label: "CRM & List Hygiene", pct: 88 },
-    { label: "Automation Logic", pct: 95 },
-    { label: "Adobe CC", pct: 85 },
-    { label: "WordPress / PHP", pct: 80 },
-  ];
-
   return (
     <div ref={ref} className="bento-card" style={{ minWidth: "280px" }}>
       <div className="section-label">// Skills</div>
-      {skills.map((s) => (
+      {SKILLS_DATA.map((s) => (
         <div className="skill-row" key={s.label}>
           <div className="skill-label">
             <span>{s.label}</span>
-            <span style={{ color: "var(--kc-link)", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.85rem" }}>{s.pct}%</span>
+            <span
+              style={{
+                color: "var(--kc-link)",
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: "0.85rem",
+              }}
+            >
+              {s.pct}%
+            </span>
           </div>
-          <div className="progress-bar">
+          <div
+            className="progress-bar"
+            role="progressbar"
+            aria-valuenow={s.pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={s.label}
+          >
             <div
               className="progress-fill"
               style={{ width: visible ? `${s.pct}%` : "0%" }}
@@ -229,7 +262,6 @@ export default function Home() {
 
       {/* Bento Grid */}
       <div className="bento-grid">
-
         {/* About — full width */}
         <div id="about" className="bento-card bento-card-full">
           <div className="section-label section-label-red">// About</div>
@@ -242,26 +274,35 @@ export default function Home() {
           >
             <div>
               <p style={{ marginTop: 0 }}>
-                I am a creative technologist with over <strong>10 years of experience</strong> intersecting{" "}
-                <strong>Email Marketing</strong>, <strong>Web Development</strong>, and{" "}
-                <strong>Process Automation</strong>. I specialize in building "bulletproof" email templates
-                that render perfectly across clients while designing automated customer journeys that drive engagement.
+                I am a creative technologist with over{" "}
+                <strong>10 years of experience</strong> intersecting{" "}
+                <strong>Email Marketing</strong>,{" "}
+                <strong>Web Development</strong>, and{" "}
+                <strong>Process Automation</strong>. I specialize in building
+                "bulletproof" email templates that render perfectly across
+                clients while designing automated customer journeys that drive
+                engagement.
               </p>
               <p>
-                My background is deeply rooted in the technical side of marketing. At CHG Healthcare, I led
-                the migration to responsive design and managed complex Salesforce marketing initiatives. I thrive
-                in environments that require both creative eyes and technical hands.
+                My background is deeply rooted in the technical side of
+                marketing. At CHG Healthcare, I led the migration to responsive
+                design and managed complex Salesforce marketing initiatives. I
+                thrive in environments that require both creative eyes and
+                technical hands.
               </p>
             </div>
             <div>
               <p>
-                <strong>Current Focus:</strong> Managing Web Support and Ad Operations for{" "}
-                <em>Altaracks</em> (Contract), simplifying WordPress setups and managing digital ad campaigns.
-                Simultaneously maintaining technical edge through infrastructure projects — installing commercial
-                data cabling and network systems.
+                <strong>Current Focus:</strong> Managing Web Support and Ad
+                Operations for <em>Altaracks</em> (Contract), simplifying
+                WordPress setups and managing digital ad campaigns.
+                Simultaneously maintaining technical edge through infrastructure
+                projects — installing commercial data cabling and network
+                systems.
               </p>
               <p style={{ marginBottom: 0 }}>
-                Bringing a mix of "blue-collar" work ethic and "white-collar" marketing strategy to every engagement.
+                Bringing a mix of "blue-collar" work ethic and "white-collar"
+                marketing strategy to every engagement.
               </p>
             </div>
           </div>
@@ -297,7 +338,13 @@ export default function Home() {
                 desc: "Led responsive migration & Salesforce ESP integration. Managed 250k+ contact lists.",
               },
             ].map((job) => (
-              <div key={job.title} style={{ borderLeft: "3px solid var(--kc-border)", paddingLeft: "16px" }}>
+              <div
+                key={job.title}
+                style={{
+                  borderLeft: "3px solid var(--kc-border)",
+                  paddingLeft: "16px",
+                }}
+              >
                 <div
                   style={{
                     color: "var(--kc-link)",
@@ -312,12 +359,24 @@ export default function Home() {
                 <strong style={{ fontSize: "1.05rem" }}>
                   {job.title} | {job.company}
                 </strong>
-                <div style={{ fontSize: "0.9rem", color: "#666", marginTop: "4px" }}>{job.desc}</div>
+                <div
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#666",
+                    marginTop: "4px",
+                  }}
+                >
+                  {job.desc}
+                </div>
               </div>
             ))}
           </div>
           <div style={{ marginTop: "24px" }}>
-            <Link href="/experience" className="btn-kc btn-kc-outline" style={{ fontSize: "0.9rem", padding: "10px 20px" }}>
+            <Link
+              href="/experience"
+              className="btn-kc btn-kc-outline"
+              style={{ fontSize: "0.9rem", padding: "10px 20px" }}
+            >
               Full Experience →
             </Link>
           </div>
@@ -365,7 +424,13 @@ export default function Home() {
                 >
                   {t.name}
                 </div>
-                <div style={{ fontSize: "0.8rem", color: "var(--kc-accent)", fontFamily: "'IBM Plex Mono', monospace" }}>
+                <div
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--kc-accent)",
+                    fontFamily: "'IBM Plex Mono', monospace",
+                  }}
+                >
                   {t.desc}
                 </div>
               </div>
@@ -408,7 +473,14 @@ export default function Home() {
           >
             View My Projects
           </h3>
-          <p style={{ fontSize: "0.95rem", opacity: 0.9, marginBottom: "24px", lineHeight: 1.6 }}>
+          <p
+            style={{
+              fontSize: "0.95rem",
+              opacity: 0.9,
+              marginBottom: "24px",
+              lineHeight: 1.6,
+            }}
+          >
             Email campaigns, automation workflows, web builds, and more.
           </p>
           <Link
@@ -442,15 +514,28 @@ export default function Home() {
           <img
             src="https://d2xsxph8kpxj0f.cloudfront.net/310519663629149134/Td5qG4NmV8Vq5Ena4ai8Ct/salt-lake-illustration-BzbHGv7U49TFC79qYgvVXU.webp"
             alt="Great Salt Lake - Pepper in Salt"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
           />
         </div>
 
         {/* Contact CTA */}
         <div className="bento-card bento-dark">
           <div className="section-label">// Let's Connect</div>
-          <p style={{ color: "#ccc", fontSize: "0.95rem", lineHeight: 1.7, marginBottom: "20px" }}>
-            Open to full-time and contract roles in email marketing, marketing automation, and web development.
+          <p
+            style={{
+              color: "#ccc",
+              fontSize: "0.95rem",
+              lineHeight: 1.7,
+              marginBottom: "20px",
+            }}
+          >
+            Open to full-time and contract roles in email marketing, marketing
+            automation, and web development.
           </p>
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <a
@@ -481,9 +566,21 @@ export default function Home() {
         </div>
 
         {/* Stats Card */}
-        <div className="bento-card bento-card-full" style={{ background: "#f8f8f8" }}>
-          <div className="section-label section-label-red">// By The Numbers</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "24px", marginTop: "8px" }}>
+        <div
+          className="bento-card bento-card-full"
+          style={{ background: "#f8f8f8" }}
+        >
+          <div className="section-label section-label-red">
+            // By The Numbers
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+              gap: "24px",
+              marginTop: "8px",
+            }}
+          >
             {[
               { value: "10+", label: "Years Experience" },
               { value: "250k+", label: "Contacts Managed" },
@@ -492,27 +589,37 @@ export default function Home() {
               { value: "50+", label: "Campaigns / Year" },
               { value: "5", label: "Major Brands Served" },
             ].map((stat) => (
-              <div key={stat.label} style={{ textAlign: "center", padding: "16px" }}>
-                <div style={{
-                  fontFamily: "'Libre Baskerville', serif",
-                  fontSize: "2.2rem",
-                  fontWeight: 700,
-                  color: "var(--kc-link)",
-                  lineHeight: 1,
-                  marginBottom: "8px",
-                }}>{stat.value}</div>
-                <div style={{
-                  fontSize: "0.8rem",
-                  color: "var(--kc-accent)",
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                }}>{stat.label}</div>
+              <div
+                key={stat.label}
+                style={{ textAlign: "center", padding: "16px" }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'Libre Baskerville', serif",
+                    fontSize: "2.2rem",
+                    fontWeight: 700,
+                    color: "var(--kc-link)",
+                    lineHeight: 1,
+                    marginBottom: "8px",
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--kc-accent)",
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                  }}
+                >
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
-
       </div>
     </Layout>
   );
