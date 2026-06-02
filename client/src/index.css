@@ -85,6 +85,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  /* Global Accessibility Baseline */
+  :focus-visible {
+    outline: 3px solid var(--kc-link) !important;
+    outline-offset: 3px !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     background: var(--kc-bg);
     color: var(--kc-text);
@@ -409,6 +425,17 @@
     font-size: 0.95rem;
     color: #555;
     line-height: 1.7;
+  }
+
+  /* ---- FOOTER LINKS ---- */
+  .footer-link {
+    color: var(--kc-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--kc-link);
   }
 
   /* ---- CONTACT FORM ---- */
