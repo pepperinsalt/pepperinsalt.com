@@ -7,10 +7,19 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [sent, setSent] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -18,7 +27,7 @@ export default function Contact() {
     e.preventDefault();
     // Build mailto link as a functional fallback
     const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
     );
     const subject = encodeURIComponent(form.subject || "Portfolio Contact");
     window.location.href = `mailto:kacy@kacyculpepper.digital?subject=${subject}&body=${body}`;
@@ -38,16 +47,24 @@ export default function Contact() {
         >
           Get In Touch
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--kc-accent)", marginBottom: 0 }}>
-          Available for full-time roles, contract work, and consulting engagements.
+        <p
+          style={{
+            fontSize: "1.1rem",
+            color: "var(--kc-accent)",
+            marginBottom: 0,
+          }}
+        >
+          Available for full-time roles, contract work, and consulting
+          engagements.
         </p>
       </header>
 
       <div className="bento-grid">
-
         {/* Contact Form */}
         <div className="bento-card bento-card-wide">
-          <div className="section-label section-label-red">// Send a Message</div>
+          <div className="section-label section-label-red">
+            // Send a Message
+          </div>
 
           {sent ? (
             <div
@@ -72,11 +89,19 @@ export default function Contact() {
                   justifyContent: "center",
                 }}
               >
-                <i className="fas fa-check" style={{ color: "var(--kc-link)", fontSize: "1.5rem" }} />
+                <i
+                  className="fas fa-check"
+                  style={{ color: "var(--kc-link)", fontSize: "1.5rem" }}
+                />
               </div>
-              <h3 style={{ fontFamily: "'Libre Baskerville', serif", margin: 0 }}>Message Sent!</h3>
+              <h3
+                style={{ fontFamily: "'Libre Baskerville', serif", margin: 0 }}
+              >
+                Message Sent!
+              </h3>
               <p style={{ color: "var(--kc-accent)", margin: 0 }}>
-                Your email client should have opened. I'll get back to you within 24–48 hours.
+                Your email client should have opened. I'll get back to you
+                within 24–48 hours.
               </p>
               <button
                 onClick={() => setSent(false)}
@@ -87,8 +112,17 @@ export default function Contact() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "16px",
+                }}
+              >
                 <div>
                   <label
                     htmlFor="name"
@@ -164,10 +198,18 @@ export default function Contact() {
                   style={{ cursor: "pointer" }}
                 >
                   <option value="">Select a topic...</option>
-                  <option value="Full-Time Opportunity">Full-Time Opportunity</option>
-                  <option value="Contract / Freelance">Contract / Freelance</option>
-                  <option value="Email Marketing Consulting">Email Marketing Consulting</option>
-                  <option value="WordPress / Web Support">WordPress / Web Support</option>
+                  <option value="Full-Time Opportunity">
+                    Full-Time Opportunity
+                  </option>
+                  <option value="Contract / Freelance">
+                    Contract / Freelance
+                  </option>
+                  <option value="Email Marketing Consulting">
+                    Email Marketing Consulting
+                  </option>
+                  <option value="WordPress / Web Support">
+                    WordPress / Web Support
+                  </option>
                   <option value="General Inquiry">General Inquiry</option>
                 </select>
               </div>
@@ -201,7 +243,10 @@ export default function Contact() {
 
               <div>
                 <button type="submit" className="btn-kc btn-kc-primary">
-                  <i className="fas fa-paper-plane" style={{ marginRight: "8px" }} />
+                  <i
+                    className="fas fa-paper-plane"
+                    style={{ marginRight: "8px" }}
+                  />
                   Send Message
                 </button>
               </div>
@@ -210,11 +255,19 @@ export default function Contact() {
         </div>
 
         {/* Contact Info */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", flex: "1 1 280px" }}>
-
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            flex: "1 1 280px",
+          }}
+        >
           <div className="bento-card">
             <div className="section-label">// Direct Contact</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               {[
                 {
                   icon: "fas fa-envelope",
@@ -241,7 +294,10 @@ export default function Contact() {
                   href: null,
                 },
               ].map((item) => (
-                <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                <div
+                  key={item.label}
+                  style={{ display: "flex", alignItems: "center", gap: "14px" }}
+                >
                   <div
                     style={{
                       width: "36px",
@@ -254,25 +310,43 @@ export default function Contact() {
                       flexShrink: 0,
                     }}
                   >
-                    <i className={item.icon} style={{ color: "var(--kc-link)", fontSize: "0.9rem" }} />
+                    <i
+                      className={item.icon}
+                      style={{ color: "var(--kc-link)", fontSize: "0.9rem" }}
+                    />
                   </div>
                   <div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--kc-accent)", fontFamily: "'IBM Plex Mono', monospace", marginBottom: "2px" }}>
+                    <div
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--kc-accent)",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        marginBottom: "2px",
+                      }}
+                    >
                       {item.label}
                     </div>
                     {item.href ? (
                       <a
                         href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        target={
+                          item.href.startsWith("http") ? "_blank" : undefined
+                        }
                         rel="noopener noreferrer"
-                        style={{ fontSize: "0.9rem", color: "var(--kc-text)", textDecoration: "none", fontWeight: 500 }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-text)")}
+                        className="hover-kc-link"
+                        style={{
+                          fontSize: "0.9rem",
+                          color: "var(--kc-text)",
+                          textDecoration: "none",
+                          fontWeight: 500,
+                        }}
                       >
                         {item.value}
                       </a>
                     ) : (
-                      <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>{item.value}</span>
+                      <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>
+                        {item.value}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -282,12 +356,22 @@ export default function Contact() {
 
           <div className="bento-card bento-dark">
             <div className="section-label">// Availability</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            >
               {[
                 { label: "Full-Time Roles", status: "Open", color: "#4caf50" },
-                { label: "Contract / Freelance", status: "Open", color: "#4caf50" },
+                {
+                  label: "Contract / Freelance",
+                  status: "Open",
+                  color: "#4caf50",
+                },
                 { label: "Consulting", status: "Available", color: "#ffd700" },
-                { label: "Response Time", status: "< 48 hours", color: "var(--kc-terminal-text)" },
+                {
+                  label: "Response Time",
+                  status: "< 48 hours",
+                  color: "var(--kc-terminal-text)",
+                },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -318,7 +402,11 @@ export default function Contact() {
 
           <div
             className="bento-card"
-            style={{ background: "var(--kc-link)", border: "none", color: "#fff" }}
+            style={{
+              background: "var(--kc-link)",
+              border: "none",
+              color: "#fff",
+            }}
           >
             <div
               style={{
@@ -332,7 +420,14 @@ export default function Contact() {
             >
               // Download C/V
             </div>
-            <p style={{ fontSize: "0.9rem", opacity: 0.9, marginBottom: "16px", lineHeight: 1.6 }}>
+            <p
+              style={{
+                fontSize: "0.9rem",
+                opacity: 0.9,
+                marginBottom: "16px",
+                lineHeight: 1.6,
+              }}
+            >
               Full curriculum vitae with complete work history and references.
             </p>
             <a
@@ -354,7 +449,6 @@ export default function Contact() {
             </a>
           </div>
         </div>
-
       </div>
 
       {/* Responsive fix for form grid */}

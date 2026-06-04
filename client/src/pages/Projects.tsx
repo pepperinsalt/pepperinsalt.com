@@ -11,7 +11,13 @@ const projects = [
     title: "CHG Healthcare Email System",
     description:
       "Led the full migration of CHG Healthcare's email program from table-based to fully responsive design. Built a modular template library in Salesforce Marketing Cloud with AMPscript-powered personalization, serving 250,000+ healthcare professionals across multiple brands.",
-    tags: ["Salesforce MC", "AMPscript", "Responsive Email", "HTML/CSS", "Automation"],
+    tags: [
+      "Salesforce MC",
+      "AMPscript",
+      "Responsive Email",
+      "HTML/CSS",
+      "Automation",
+    ],
     link: "https://www.chghealthcare.com",
     previewUrl: "https://www.chghealthcare.com",
     result: "Open rates improved from 18% → 31%",
@@ -29,7 +35,13 @@ const projects = [
     title: "Email Automation System (Artisan Talent)",
     description:
       "Designed and implemented a CSV-driven email automation system that eliminated 60% of manual campaign work. Built reusable template components with dynamic content blocks using AMPscript and Liquid, dramatically reducing production time per campaign.",
-    tags: ["AMPscript", "Liquid", "CSV Automation", "HTML Email", "Workflow Design"],
+    tags: [
+      "AMPscript",
+      "Liquid",
+      "CSV Automation",
+      "HTML Email",
+      "Workflow Design",
+    ],
     link: "#",
     previewUrl: null,
     result: "60% reduction in manual workload",
@@ -59,12 +71,26 @@ export default function Projects() {
         >
           Projects
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--kc-accent)", marginBottom: 0 }}>
-          Selected work across email, automation, web development, and ad operations.
+        <p
+          style={{
+            fontSize: "1.1rem",
+            color: "var(--kc-accent)",
+            marginBottom: 0,
+          }}
+        >
+          Selected work across email, automation, web development, and ad
+          operations.
         </p>
       </header>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "80px", marginTop: "16px" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "80px",
+          marginTop: "16px",
+        }}
+      >
         {projects.map((proj, i) => (
           <div key={proj.title} className="proj-item">
             {/* Preview */}
@@ -81,7 +107,8 @@ export default function Projects() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    background: "linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%)",
+                    background:
+                      "linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%)",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -90,8 +117,22 @@ export default function Projects() {
                     color: "var(--kc-accent)",
                   }}
                 >
-                  <i className="fas fa-envelope-open-text" style={{ fontSize: "3rem", color: "var(--kc-link)", opacity: 0.4 }} />
-                  <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.85rem", textAlign: "center", padding: "0 20px" }}>
+                  <i
+                    className="fas fa-envelope-open-text"
+                    style={{
+                      fontSize: "3rem",
+                      color: "var(--kc-link)",
+                      opacity: 0.4,
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontSize: "0.85rem",
+                      textAlign: "center",
+                      padding: "0 20px",
+                    }}
+                  >
                     Internal project — preview not available
                   </div>
                 </div>
@@ -114,7 +155,14 @@ export default function Projects() {
                 Project {String(i + 1).padStart(2, "0")}
               </div>
               <h3>{proj.title}</h3>
-              <p style={{ fontSize: "1rem", color: "#444", marginBottom: "16px", lineHeight: 1.8 }}>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  color: "#444",
+                  marginBottom: "16px",
+                  lineHeight: 1.8,
+                }}
+              >
                 {proj.description}
               </p>
 
@@ -139,9 +187,19 @@ export default function Projects() {
                 {proj.result}
               </div>
 
-              <div className="proj-tags" style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "24px" }}>
+              <div
+                className="proj-tags"
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "8px",
+                  marginBottom: "24px",
+                }}
+              >
                 {proj.tags.map((tag) => (
-                  <span key={tag} className="kc-tag">{tag}</span>
+                  <span key={tag} className="kc-tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
 
@@ -150,6 +208,7 @@ export default function Projects() {
                   href={proj.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="hover-kc-link-bg"
                   style={{
                     color: "#fff",
                     background: "var(--kc-link)",
@@ -159,19 +218,13 @@ export default function Projects() {
                     fontWeight: 600,
                     textDecoration: "none",
                     display: "inline-block",
-                    transition: "all 0.2s",
                     boxShadow: "0 4px 15px rgba(200, 16, 46, 0.2)",
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "var(--kc-link-hover)";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "var(--kc-link)";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  }}
                 >
-                  <i className="fas fa-external-link-alt" style={{ marginRight: "8px" }} />
+                  <i
+                    className="fas fa-external-link-alt"
+                    style={{ marginRight: "8px" }}
+                  />
                   View Live
                 </a>
               )}
@@ -196,14 +249,22 @@ export default function Projects() {
         }}
       >
         <div>
-          <div className="section-label" style={{ color: "var(--kc-cement)", borderColor: "#555" }}>
+          <div
+            className="section-label"
+            style={{ color: "var(--kc-cement)", borderColor: "#555" }}
+          >
             // Have a project in mind?
           </div>
           <p style={{ color: "#ccc", fontSize: "0.95rem", margin: 0 }}>
-            I am available for contract and full-time roles. Let's talk about what you're building.
+            I am available for contract and full-time roles. Let's talk about
+            what you're building.
           </p>
         </div>
-        <a href="mailto:kacy@kacyculpepper.digital" className="btn-kc btn-kc-primary" style={{ flexShrink: 0 }}>
+        <a
+          href="mailto:kacy@kacyculpepper.digital"
+          className="btn-kc btn-kc-primary"
+          style={{ flexShrink: 0 }}
+        >
           <i className="fas fa-envelope" style={{ marginRight: "8px" }} />
           Get In Touch
         </a>
