@@ -44,7 +44,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Fixed Clock */}
       <div className="fixed-clock">{time}</div>
 
-      <div className="container" style={{ paddingTop: "48px", paddingBottom: "64px" }}>
+      <div
+        className="container"
+        style={{ paddingTop: "48px", paddingBottom: "64px" }}
+      >
         {/* Navigation */}
         <nav className="kc-nav" aria-label="Primary Navigation">
           {navLinks.map((link) => (
@@ -85,9 +88,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div style={{ display: "flex", gap: "20px" }}>
             <a
               href="mailto:kacy@kacyculpepper.digital"
+              className="hover-kc-link"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
             >
               <i className="fas fa-envelope" style={{ marginRight: "6px" }} />
               Email
@@ -96,9 +98,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href="https://www.linkedin.com/in/kacyculpepper"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover-kc-link"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
             >
               <i className="fab fa-linkedin" style={{ marginRight: "6px" }} />
               LinkedIn
@@ -107,9 +108,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href="https://github.com/pepperinsalt"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover-kc-link"
               style={{ color: "var(--kc-accent)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--kc-link)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kc-accent)")}
             >
               <i className="fab fa-github" style={{ marginRight: "6px" }} />
               GitHub

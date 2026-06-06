@@ -110,6 +110,16 @@
     outline: 3px solid var(--kc-link) !important;
     outline-offset: 3px !important;
   }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
@@ -447,6 +457,24 @@
   .kc-input:focus {
     border-color: var(--kc-link);
     box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.08);
+  }
+
+  /* ---- UTILITIES ---- */
+  .hover-kc-link {
+    transition: color 0.2s ease;
+  }
+  .hover-kc-link:hover,
+  .hover-kc-link:focus-visible {
+    color: var(--kc-link) !important;
+  }
+
+  .hover-kc-link-bg {
+    transition: all 0.2s ease;
+  }
+  .hover-kc-link-bg:hover,
+  .hover-kc-link-bg:focus-visible {
+    background: var(--kc-link-hover) !important;
+    transform: translateY(-2px) !important;
   }
 
   /* ---- ANIMATIONS ---- */
