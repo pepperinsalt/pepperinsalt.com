@@ -7,6 +7,7 @@
 import { useState, useMemo } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const posts = [
   {
@@ -81,6 +82,8 @@ const categories = [
 ];
 
 export default function Blog() {
+  useDocumentTitle("Blog | Kacy Culpepper");
+
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = useMemo(() => {
