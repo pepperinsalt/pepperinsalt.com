@@ -12,3 +12,8 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+
+## 2025-06-08 — JavaScript Animations and prefers-reduced-motion
+
+**Learning:** Adding `@media (prefers-reduced-motion)` to the global CSS base layer correctly stops CSS animations, but it completely ignores DOM updates powered by JavaScript (like React `useEffect` loops with `setInterval` or `setTimeout`). This leaves components like auto-playing carousels or typewriter effects in violation of WCAG 2.2.2 (Pause, Stop, Hide).
+**Action:** When implementing JS-driven UI updates, I must explicitly check `window.matchMedia("(prefers-reduced-motion: reduce)").matches` in the component's logic and gracefully skip or freeze the animation (e.g., jump to the final state) if it's true.
