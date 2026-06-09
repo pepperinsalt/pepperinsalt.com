@@ -12,3 +12,7 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+## 2025-10-09 — SPA Accessibility Title Fixes
+
+**Learning:** In a Single Page Application styled like a CMS, navigation events don't naturally trigger screen reader announcements for the new page title (unlike standard multi-page PHP architectures using `wp_title()`).
+**Action:** Implemented a `useDocumentTitle` React hook and applied it directly across all top-level page components (`Home`, `About`, `Experience`, etc.) to dynamically update `document.title` on mount, ensuring parity with basic WCAG AA expectations for navigation context.
