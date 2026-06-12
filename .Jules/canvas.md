@@ -12,3 +12,8 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+
+## 2026-06-12 — Dynamic Document Titles for SPA Navigation
+
+**Learning:** In a single-page application (SPA), route changes do not automatically update the document title, leaving screen reader users unaware of the successful navigation or their current location.
+**Action:** Always dynamically update `document.title` on route changes using a custom `useDocumentTitle` hook inside top-level page components to ensure screen readers announce navigation correctly.
