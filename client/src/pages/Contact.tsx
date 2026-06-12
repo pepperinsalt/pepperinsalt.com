@@ -5,8 +5,11 @@
 
 import { useState } from "react";
 import Layout from "@/components/Layout";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+
 
 export default function Contact() {
+  useDocumentTitle("Contact | Kacy Culpepper");
   const [form, setForm] = useState({
     name: "",
     email: "",

@@ -4,6 +4,8 @@
  */
 
 import Layout from "@/components/Layout";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+
 
 const jobs = [
   {
@@ -81,6 +83,7 @@ const jobs = [
 ];
 
 export default function Experience() {
+  useDocumentTitle("Experience | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>
