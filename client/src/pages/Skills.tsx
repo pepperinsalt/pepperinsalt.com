@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 const skillCategories = [
   {
     title: "Email Development",
@@ -109,6 +110,7 @@ function SkillCategory({ category, visible }: { category: typeof skillCategories
 }
 
 export default function Skills() {
+  useDocumentTitle("Skills");
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 

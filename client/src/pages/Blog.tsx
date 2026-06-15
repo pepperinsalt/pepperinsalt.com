@@ -8,6 +8,7 @@ import { useState, useMemo } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 const posts = [
   {
     slug: "bulletproof-email-html",
@@ -81,6 +82,7 @@ const categories = [
 ];
 
 export default function Blog() {
+  useDocumentTitle("Blog");
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = useMemo(() => {

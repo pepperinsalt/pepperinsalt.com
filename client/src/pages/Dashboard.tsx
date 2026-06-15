@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { toast } from "sonner";
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 // ---- Types ----
 
 interface DailyEntry {
@@ -93,6 +94,7 @@ async function apiDeleteEntry(date: string): Promise<void> {
 // ---- Main Component ----
 
 export default function Dashboard() {
+  useDocumentTitle("Dashboard");
   const today = new Date().toISOString().split("T")[0];
 
   // DOB stored in localStorage — drives the days-alive counter

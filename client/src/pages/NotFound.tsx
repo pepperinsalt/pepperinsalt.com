@@ -3,7 +3,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
 import { useLocation } from "wouter";
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 export default function NotFound() {
+  useDocumentTitle("404 Not Found");
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {
