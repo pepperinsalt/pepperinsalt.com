@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const TERMINAL_LINES = [
   "> Initializing email_engine.js...",
@@ -162,6 +163,7 @@ function SkillBars() {
 }
 
 export default function Home() {
+  useDocumentTitle("Kacy Culpepper | Email Marketing Specialist");
   return (
     <Layout>
       {/* Logo */}

@@ -5,6 +5,7 @@
  */
 
 import Layout from "@/components/Layout";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const projects = [
   {
@@ -58,6 +59,7 @@ const projects = [
 ];
 
 export default function Projects() {
+  useDocumentTitle("Projects | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>
