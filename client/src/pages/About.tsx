@@ -4,6 +4,7 @@
  */
 
 import Layout from "@/components/Layout";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const tools = [
   { icon: "fas fa-envelope", label: "Salesforce Marketing Cloud" },
@@ -17,6 +18,7 @@ const tools = [
 ];
 
 export default function About() {
+  useDocumentTitle("About | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>

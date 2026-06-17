@@ -12,3 +12,8 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+
+## 2026-06-10 — React SPA Dynamic Titles for Accessibility
+
+**Learning:** Although this project follows a WordPress aesthetic, as a React SPA, navigating between pages does not trigger a full page reload. Consequently, screen readers may not announce page changes, leaving visually impaired users unaware that the view has updated.
+**Action:** Implementing and calling a `useDocumentTitle` hook on every top-level page component is an essential accessibility baseline for SPAs. It ensures `document.title` is dynamically updated upon routing, forcing screen readers to announce the new context, fulfilling WCAG guidelines for page titles.
