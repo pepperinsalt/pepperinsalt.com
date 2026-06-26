@@ -42,6 +42,12 @@ function TerminalCard() {
   const [currentLine, setCurrentLine] = useState("");
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayed(TERMINAL_LINES);
+      setLineIndex(TERMINAL_LINES.length);
+      return;
+    }
+
     if (lineIndex >= TERMINAL_LINES.length) return;
     const line = TERMINAL_LINES[lineIndex];
     if (charIndex < line.length) {
@@ -86,6 +92,10 @@ function InsightsCard() {
   const [fade, setFade] = useState(true);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     const t = setInterval(() => {
       setFade(false);
       setTimeout(() => {
@@ -123,6 +133,11 @@ function SkillBars() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true);
+      return;
+    }
+
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.3 }

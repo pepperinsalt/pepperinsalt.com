@@ -12,3 +12,6 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+## 2024-03-24 — Prefer Reduced Motion on JS Animations
+**Learning:** Implementing `prefers-reduced-motion` for JS-driven animations is as critical as CSS. While CSS can freeze animations, it cannot halt JS `setInterval` or `setTimeout` loops that drive complex UI (like typewriters or data rotators).
+**Action:** When implementing 'prefers-reduced-motion' for JS loops or scroll-triggered animations using 'IntersectionObserver' in React components, instantly resolve the final state and return early to bypass the logic entirely.
