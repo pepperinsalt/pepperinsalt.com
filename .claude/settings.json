@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "recall-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "raiyanyahya/recall"
+      }
+    }
+  },
+  "enabledPlugins": [
+    "recall@recall-plugin"
+  ]
+}
