@@ -5,9 +5,16 @@
         "source": "github",
         "repo": "raiyanyahya/recall"
       }
+    },
+    "arbor-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "RUC-NLPIR/Arbor"
+      }
     }
   },
   "enabledPlugins": [
-    "recall@recall-plugin"
+    "recall@recall-plugin",
+    "arbor@arbor-plugin"
   ]
 }
