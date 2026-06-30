@@ -12,3 +12,8 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+
+## 2026-06-30 — Explicit Form Input Labeling for Accessibility
+
+**Learning:** When using mapped React components or standalone inputs, form fields must have explicitly associated labels to be WCAG 2.1 AA compliant. Missing `id` and `htmlFor` pairings or `aria-label` attributes on standalone fields (like `date` inputs or `textarea` journals) will cause screen readers to announce them as unlabeled.
+**Action:** Always pair `<label>` elements with their respective inputs using matching `htmlFor` and `id` properties. For standalone inputs without visible labels, provide descriptive `aria-label` attributes to ensure context is announced to assistive technologies.
