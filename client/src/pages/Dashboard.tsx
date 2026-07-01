@@ -96,14 +96,17 @@ export default function Dashboard() {
   const today = new Date().toISOString().split("T")[0];
 
   // DOB stored in localStorage — drives the days-alive counter
-  const [dob, setDob] = useState<string>(() => localStorage.getItem("life_dob") || "");
+  const [dob, setDob] = useState<string>(
+    () => localStorage.getItem("life_dob") || "",
+  );
   const [dobInput, setDobInput] = useState(dob);
   const [showDobPanel, setShowDobPanel] = useState(false);
 
-  const daysAlive =
-    dob
-      ? Math.floor((Date.now() - new Date(dob + "T00:00:00").getTime()) / 86_400_000)
-      : null;
+  const daysAlive = dob
+    ? Math.floor(
+        (Date.now() - new Date(dob + "T00:00:00").getTime()) / 86_400_000,
+      )
+    : null;
 
   // Entry state
   const [entries, setEntries] = useState<DailyEntry[]>([]);
@@ -151,7 +154,9 @@ export default function Dashboard() {
           if (found.weather) setWeather(found.weather);
         }
       })
-      .catch(() => toast.error("Could not load entries — is the server running?"))
+      .catch(() =>
+        toast.error("Could not load entries — is the server running?"),
+      )
       .finally(() => setLoading(false));
   }, [today]);
 
@@ -250,14 +255,22 @@ export default function Dashboard() {
     const base = form.journalText;
 
     recognition.onresult = (e: unknown) => {
-      const event = e as { resultIndex: number; results: SpeechRecognitionResultList };
+      const event = e as {
+        resultIndex: number;
+        results: SpeechRecognitionResultList;
+      };
       let final = "";
       let interim = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) final += event.results[i][0].transcript;
         else interim += event.results[i][0].transcript;
       }
-      const combined = (base + (base && final ? " " : "") + final + (interim ? ` [${interim}]` : "")).trim();
+      const combined = (
+        base +
+        (base && final ? " " : "") +
+        final +
+        (interim ? ` [${interim}]` : "")
+      ).trim();
       setField("journalText", combined);
     };
     recognition.onend = () => setIsRecording(false);
@@ -320,7 +333,12 @@ export default function Dashboard() {
   const chartData = entries
     .slice(0, 30)
     .reverse()
-    .map((e) => ({ date: e.date.slice(5), mood: e.mood, energy: e.energy, focus: e.focus }));
+    .map((e) => ({
+      date: e.date.slice(5),
+      mood: e.mood,
+      energy: e.energy,
+      focus: e.focus,
+    }));
 
   const showForm = !todayEntry || editMode;
   const firstLocation = entries.find((e) => e.location)?.location;
@@ -358,9 +376,19 @@ export default function Dashboard() {
         >
           <div
             className="terminal-inner"
-            style={{ flexDirection: "column", alignItems: "flex-start", gap: "10px" }}
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: "10px",
+            }}
           >
-            <span style={{ fontSize: "0.72rem", opacity: 0.55, letterSpacing: "0.12em" }}>
+            <span
+              style={{
+                fontSize: "0.72rem",
+                opacity: 0.55,
+                letterSpacing: "0.12em",
+              }}
+            >
               // DAYS ALIVE
             </span>
             <span
@@ -383,17 +411,25 @@ export default function Dashboard() {
                 })}
               </span>
             ) : (
-              <span style={{ fontSize: "0.78rem", opacity: 0.55 }}>click to set birthday</span>
+              <span style={{ fontSize: "0.78rem", opacity: 0.55 }}>
+                click to set birthday
+              </span>
             )}
           </div>
         </div>
 
         {/* DOB panel */}
         {showDobPanel && (
-          <div className="bento-card" style={{ flex: "0 1 280px", alignSelf: "center" }}>
-            <span className="section-label">Date of Birth</span>
+          <div
+            className="bento-card"
+            style={{ flex: "0 1 280px", alignSelf: "center" }}
+          >
+            <label htmlFor="dobInput" className="section-label">
+              Date of Birth
+            </label>
             <div style={{ display: "flex", gap: "8px", marginTop: "14px" }}>
               <input
+                id="dobInput"
                 type="date"
                 value={dobInput}
                 onChange={(e) => setDobInput(e.target.value)}
@@ -492,14 +528,22 @@ export default function Dashboard() {
         {/* Trends chart */}
         {chartData.length > 1 && (
           <div className="bento-card bento-card-wide">
-            <span className="section-label">// TRENDS (last {chartData.length} days)</span>
+            <span className="section-label">
+              // TRENDS (last {chartData.length} days)
+            </span>
             <div style={{ marginTop: "20px" }}>
               <ResponsiveContainer width="100%" height={220}>
-                <LineChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                <LineChart
+                  data={chartData}
+                  margin={{ top: 4, right: 8, left: -20, bottom: 0 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" />
                   <XAxis
                     dataKey="date"
-                    tick={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace" }}
+                    tick={{
+                      fontSize: 11,
+                      fontFamily: "'IBM Plex Mono', monospace",
+                    }}
                   />
                   <YAxis domain={[1, 10]} tick={{ fontSize: 11 }} />
                   <Tooltip
@@ -561,32 +605,48 @@ export default function Dashboard() {
           <div className="bento-card bento-card-wide">
             <span className="section-label">// HISTORY</span>
             <div style={{ marginTop: "16px", overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem" }}>
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  fontSize: "0.88rem",
+                }}
+              >
                 <thead>
                   <tr style={{ borderBottom: "2px solid var(--kc-border)" }}>
-                    {["Date", "Days Alive", "Mood", "Energy", "Focus", "Steps", "Sleep", "Location"].map(
-                      (h) => (
-                        <th
-                          key={h}
-                          style={{
-                            textAlign: "left",
-                            padding: "8px 12px",
-                            fontFamily: "'IBM Plex Mono', monospace",
-                            fontSize: "0.75rem",
-                            color: "var(--kc-accent)",
-                            fontWeight: 600,
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {h}
-                        </th>
-                      ),
-                    )}
+                    {[
+                      "Date",
+                      "Days Alive",
+                      "Mood",
+                      "Energy",
+                      "Focus",
+                      "Steps",
+                      "Sleep",
+                      "Location",
+                    ].map((h) => (
+                      <th
+                        key={h}
+                        style={{
+                          textAlign: "left",
+                          padding: "8px 12px",
+                          fontFamily: "'IBM Plex Mono', monospace",
+                          fontSize: "0.75rem",
+                          color: "var(--kc-accent)",
+                          fontWeight: 600,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {h}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
                   {entries.slice(0, 30).map((e) => (
-                    <tr key={e.id} style={{ borderBottom: "1px solid var(--kc-border)" }}>
+                    <tr
+                      key={e.id}
+                      style={{ borderBottom: "1px solid var(--kc-border)" }}
+                    >
                       <td
                         style={{
                           padding: "10px 12px",
@@ -694,16 +754,28 @@ function FormView({
       {/* Health inputs */}
       <section>
         <SectionSubLabel>Health Data</SectionSubLabel>
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginTop: "12px" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "16px",
+            flexWrap: "wrap",
+            marginTop: "12px",
+          }}
+        >
           {(
             [
               { key: "steps", label: "Steps", placeholder: "8000" },
               { key: "sleepHours", label: "Sleep (hrs)", placeholder: "7.5" },
-              { key: "heartRate", label: "Heart Rate (bpm)", placeholder: "72" },
+              {
+                key: "heartRate",
+                label: "Heart Rate (bpm)",
+                placeholder: "72",
+              },
             ] as const
           ).map(({ key, label, placeholder }) => (
             <div key={key} style={{ flex: "1 1 150px" }}>
               <label
+                htmlFor={key}
                 style={{
                   display: "block",
                   fontSize: "0.85rem",
@@ -714,6 +786,7 @@ function FormView({
                 {label}
               </label>
               <input
+                id={key}
                 type="number"
                 placeholder={placeholder}
                 value={form[key]}
@@ -731,14 +804,22 @@ function FormView({
             fontFamily: "'IBM Plex Mono', monospace",
           }}
         >
-          Tip: pull stats from Apple Health or Google Fit, then enter manually here.
+          Tip: pull stats from Apple Health or Google Fit, then enter manually
+          here.
         </p>
       </section>
 
       {/* Score sliders */}
       <section>
         <SectionSubLabel>Daily Scores</SectionSubLabel>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "12px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            marginTop: "12px",
+          }}
+        >
           {(["mood", "energy", "focus"] as const).map((key) => (
             <div key={key}>
               <div
@@ -749,9 +830,16 @@ function FormView({
                   alignItems: "baseline",
                 }}
               >
-                <span style={{ fontWeight: 600, fontSize: "0.95rem", textTransform: "capitalize" }}>
+                <label
+                  htmlFor={`slider-${key}`}
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                    textTransform: "capitalize",
+                  }}
+                >
                   {key}
-                </span>
+                </label>
                 <span
                   style={{
                     fontFamily: "'IBM Plex Mono', monospace",
@@ -762,20 +850,29 @@ function FormView({
                 >
                   {form[key]}
                   <span
-                    style={{ fontSize: "0.75rem", fontWeight: 400, color: "var(--kc-accent)" }}
+                    style={{
+                      fontSize: "0.75rem",
+                      fontWeight: 400,
+                      color: "var(--kc-accent)",
+                    }}
                   >
                     /10
                   </span>
                 </span>
               </div>
               <input
+                id={`slider-${key}`}
                 type="range"
                 min={1}
                 max={10}
                 step={1}
                 value={form[key]}
                 onChange={(e) => setField(key, Number(e.target.value))}
-                style={{ width: "100%", accentColor: "var(--kc-link)", cursor: "pointer" }}
+                style={{
+                  width: "100%",
+                  accentColor: "var(--kc-link)",
+                  cursor: "pointer",
+                }}
               />
               <div
                 style={{
@@ -800,20 +897,36 @@ function FormView({
         <SectionSubLabel>Location & Weather</SectionSubLabel>
         <div style={{ marginTop: "12px" }}>
           {location || weather ? (
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "12px",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
               {location && (
                 <span
-                  style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.88rem" }}
+                  style={{
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontSize: "0.88rem",
+                  }}
                 >
-                  📍 {location.city ?? `${location.lat.toFixed(3)}, ${location.lng.toFixed(3)}`}
+                  📍{" "}
+                  {location.city ??
+                    `${location.lat.toFixed(3)}, ${location.lng.toFixed(3)}`}
                 </span>
               )}
               {weather && (
                 <span
-                  style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.88rem" }}
+                  style={{
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontSize: "0.88rem",
+                  }}
                 >
                   🌡 {weather.temp}°F — {weather.condition}
-                  {weather.humidity != null && ` · ${weather.humidity}% humidity`}
+                  {weather.humidity != null &&
+                    ` · ${weather.humidity}% humidity`}
                 </span>
               )}
               <button
@@ -839,9 +952,18 @@ function FormView({
 
       {/* Voice Journal */}
       <section>
-        <SectionSubLabel>Journal</SectionSubLabel>
+        <label htmlFor="journal-textarea" style={{ display: "block" }}>
+          <SectionSubLabel>Journal</SectionSubLabel>
+        </label>
         <div style={{ marginTop: "12px" }}>
-          <div style={{ display: "flex", gap: "10px", alignItems: "center", marginBottom: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
             <button
               className={`btn-kc ${isRecording ? "btn-kc-primary" : "btn-kc-outline"}`}
               style={{ padding: "8px 16px", fontSize: "0.88rem" }}
@@ -862,19 +984,28 @@ function FormView({
             )}
           </div>
           <textarea
+            id="journal-textarea"
             value={form.journalText}
             onChange={(e) => setField("journalText", e.target.value)}
             placeholder="Today's thoughts, reflections, what happened..."
             className="kc-input"
             rows={5}
-            style={{ resize: "vertical", fontFamily: "'Inter', sans-serif", lineHeight: 1.7 }}
+            style={{
+              resize: "vertical",
+              fontFamily: "'Inter', sans-serif",
+              lineHeight: 1.7,
+            }}
           />
         </div>
       </section>
 
       {/* Actions */}
       <div style={{ display: "flex", gap: "12px" }}>
-        <button className="btn-kc btn-kc-primary" onClick={onSave} disabled={saving}>
+        <button
+          className="btn-kc btn-kc-primary"
+          onClick={onSave}
+          disabled={saving}
+        >
           {saving ? "Saving..." : "Save Entry"}
         </button>
         {editMode && (
@@ -893,8 +1024,12 @@ function EntryView({ entry }: { entry: DailyEntry }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-        {entry.steps != null && <StatChip label="Steps" value={entry.steps.toLocaleString()} />}
-        {entry.sleepHours != null && <StatChip label="Sleep" value={`${entry.sleepHours}h`} />}
+        {entry.steps != null && (
+          <StatChip label="Steps" value={entry.steps.toLocaleString()} />
+        )}
+        {entry.sleepHours != null && (
+          <StatChip label="Sleep" value={`${entry.sleepHours}h`} />
+        )}
         {entry.heartRate != null && (
           <StatChip label="Heart Rate" value={`${entry.heartRate} bpm`} />
         )}
@@ -920,8 +1055,10 @@ function EntryView({ entry }: { entry: DailyEntry }) {
           )}
           {entry.weather && (
             <span>
-              {entry.location ? " · " : ""}🌡 {entry.weather.temp}°F — {entry.weather.condition}
-              {entry.weather.humidity != null && ` · ${entry.weather.humidity}% humidity`}
+              {entry.location ? " · " : ""}🌡 {entry.weather.temp}°F —{" "}
+              {entry.weather.condition}
+              {entry.weather.humidity != null &&
+                ` · ${entry.weather.humidity}% humidity`}
             </span>
           )}
         </div>
@@ -1020,9 +1157,17 @@ function ScoreChip({ label, value }: { label: string; value: number }) {
       >
         {label}
       </div>
-      <div style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--kc-link)" }}>
+      <div
+        style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--kc-link)" }}
+      >
         {value}
-        <span style={{ fontSize: "0.72rem", fontWeight: 400, color: "var(--kc-accent)" }}>
+        <span
+          style={{
+            fontSize: "0.72rem",
+            fontWeight: 400,
+            color: "var(--kc-accent)",
+          }}
+        >
           /10
         </span>
       </div>
