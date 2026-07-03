@@ -391,9 +391,10 @@ export default function Dashboard() {
         {/* DOB panel */}
         {showDobPanel && (
           <div className="bento-card" style={{ flex: "0 1 280px", alignSelf: "center" }}>
-            <span className="section-label">Date of Birth</span>
+            <label htmlFor="dob-input" className="section-label" style={{ display: "block" }}>Date of Birth</label>
             <div style={{ display: "flex", gap: "8px", marginTop: "14px" }}>
               <input
+                id="dob-input"
                 type="date"
                 value={dobInput}
                 onChange={(e) => setDobInput(e.target.value)}
@@ -704,6 +705,7 @@ function FormView({
           ).map(({ key, label, placeholder }) => (
             <div key={key} style={{ flex: "1 1 150px" }}>
               <label
+                htmlFor={`health-input-${key}`}
                 style={{
                   display: "block",
                   fontSize: "0.85rem",
@@ -714,6 +716,7 @@ function FormView({
                 {label}
               </label>
               <input
+                id={`health-input-${key}`}
                 type="number"
                 placeholder={placeholder}
                 value={form[key]}
@@ -749,9 +752,9 @@ function FormView({
                   alignItems: "baseline",
                 }}
               >
-                <span style={{ fontWeight: 600, fontSize: "0.95rem", textTransform: "capitalize" }}>
+                <label htmlFor={`score-slider-${key}`} style={{ fontWeight: 600, fontSize: "0.95rem", textTransform: "capitalize" }}>
                   {key}
-                </span>
+                </label>
                 <span
                   style={{
                     fontFamily: "'IBM Plex Mono', monospace",
@@ -769,6 +772,7 @@ function FormView({
                 </span>
               </div>
               <input
+                id={`score-slider-${key}`}
                 type="range"
                 min={1}
                 max={10}
@@ -862,6 +866,7 @@ function FormView({
             )}
           </div>
           <textarea
+            aria-label="Journal Entry"
             value={form.journalText}
             onChange={(e) => setField("journalText", e.target.value)}
             placeholder="Today's thoughts, reflections, what happened..."

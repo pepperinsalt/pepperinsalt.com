@@ -12,3 +12,8 @@
 
 **Learning:** Replicating `:hover` states via inline React JS events (`onMouseEnter`/`onMouseLeave`) creates inconsistencies with `:focus-visible` accessibility, making elements unpredictable for keyboard-only users.
 **Action:** Always move interaction states back to standard CSS classes. Additionally, enforcing `prefers-reduced-motion: reduce` in the `@layer base` prevents dizzying animations on custom theme sites while still supporting default utility configurations.
+
+## 2026-06-08 — Explicit Labeling in React Components
+
+**Learning:** Replicating CMS patterns in React can lead to accessibility pitfalls with dynamic form mapping. Implicit labels wrapping inputs are generally acceptable but explicit `<label htmlFor="id">` and `<input id="id">` pairing ensures the most robust support across diverse screen reader software without losing context when mapping through arrays of questions/metrics.
+**Action:** When creating or modifying custom React form inputs, explicitly pair `<label>` elements with inputs using matching `htmlFor` and `id` attributes. In cases where visual labels are omitted (like standalone textareas), implement `aria-label` to maintain WCAG 2.1 AA accessibility compliance.
