@@ -4,6 +4,7 @@
  * Posts are static content representing the kind of writing Kacy would publish
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useState, useMemo } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
@@ -81,6 +82,7 @@ const categories = [
 ];
 
 export default function Blog() {
+  useDocumentTitle("Blog | Kacy Culpepper");
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = useMemo(() => {

@@ -3,6 +3,7 @@
  * Skills page — progress bars, tech grid, certifications
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 
@@ -109,6 +110,7 @@ function SkillCategory({ category, visible }: { category: typeof skillCategories
 }
 
 export default function Skills() {
+  useDocumentTitle("Skills | Kacy Culpepper");
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 

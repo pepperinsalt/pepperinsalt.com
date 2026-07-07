@@ -4,6 +4,7 @@
  * Uses kacyculpepper.digital proj-item pattern
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import Layout from "@/components/Layout";
 
 const projects = [
@@ -58,6 +59,7 @@ const projects = [
 ];
 
 export default function Projects() {
+  useDocumentTitle("Projects | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>
