@@ -1,6 +1,6 @@
 $ vite --host
 
-  VITE v7.3.3  ready in 613 ms
+  VITE v7.3.3  ready in 403 ms
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: http://192.168.0.2:3000/
