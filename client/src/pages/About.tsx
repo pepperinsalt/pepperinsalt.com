@@ -3,6 +3,7 @@
  * About page — expanded bio, philosophy, tools, personal facts
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import Layout from "@/components/Layout";
 
 const tools = [
@@ -17,6 +18,7 @@ const tools = [
 ];
 
 export default function About() {
+  useDocumentTitle("About | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>

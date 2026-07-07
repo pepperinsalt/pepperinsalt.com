@@ -3,6 +3,7 @@
  * Experience page — full work history, timeline style
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import Layout from "@/components/Layout";
 
 const jobs = [
@@ -81,6 +82,7 @@ const jobs = [
 ];
 
 export default function Experience() {
+  useDocumentTitle("Experience | Kacy Culpepper");
   return (
     <Layout>
       <header style={{ marginBottom: "40px" }}>

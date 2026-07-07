@@ -1,5 +1,6 @@
 /// <reference types="@types/google.maps" />
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Layout from "@/components/Layout";
 import { MapView } from "@/components/Map";
@@ -93,6 +94,7 @@ async function apiDeleteEntry(date: string): Promise<void> {
 // ---- Main Component ----
 
 export default function Dashboard() {
+  useDocumentTitle("Dashboard | Kacy Culpepper");
   const today = new Date().toISOString().split("T")[0];
 
   // DOB stored in localStorage — drives the days-alive counter

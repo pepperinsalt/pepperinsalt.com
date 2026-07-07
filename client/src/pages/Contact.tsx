@@ -3,10 +3,12 @@
  * Contact page — form + direct contact info
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useState } from "react";
 import Layout from "@/components/Layout";
 
 export default function Contact() {
+  useDocumentTitle("Contact | Kacy Culpepper");
   const [form, setForm] = useState({
     name: "",
     email: "",

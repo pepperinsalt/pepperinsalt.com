@@ -4,6 +4,7 @@
  * Sections: Hero header, About, Experience, Skills, Terminal, Insights, Trusted By, Projects preview
  */
 
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
@@ -162,6 +163,7 @@ function SkillBars() {
 }
 
 export default function Home() {
+  useDocumentTitle("Home | Kacy Culpepper");
   return (
     <Layout>
       {/* Logo */}
