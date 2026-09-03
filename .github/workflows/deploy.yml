@@ -41,7 +41,7 @@ jobs:
           SFTP_PASS: ${{ inputs.sftp_password || secrets.IONOS_SFTP_PASSWORD }}
         run: |
           sudo apt-get install -y lftp
-          lftp -u a1267584,"$SFTP_PASS" sftp://access-5020375910.webspace-host.com -e "
+          lftp -u a1267584,"$SFTP_PASS" sftp://50.21.180.40 -e "
             set sftp:auto-confirm yes;
             set net:timeout 60;
             mirror -R --parallel=4 --verbose dist/public/ /pepperinsalt/public/;
