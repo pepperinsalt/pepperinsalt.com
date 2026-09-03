@@ -1,0 +1,53 @@
+name: Build & Deploy to IONOS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sftp_password:
+        description: "IONOS SFTP password"
+        required: false
+        default: ""
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+        env:
+          VITE_ANALYTICS_ENDPOINT: ${{ secrets.VITE_ANALYTICS_ENDPOINT }}
+          VITE_ANALYTICS_WEBSITE_ID: ${{ secrets.VITE_ANALYTICS_WEBSITE_ID }}
+
+      - name: Deploy to IONOS via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: access-5020375910.webspace-host.com
+          username: a1267584
+          password: ${{ inputs.sftp_password || secrets.IONOS_SFTP_PASSWORD }}
+          port: 22
+          protocol: sftp
+          local-dir: ./dist/public/
+          server-dir: /pepperinsalt/public/
+          exclude: |
+            **/.git*
+            **/.git*/**
