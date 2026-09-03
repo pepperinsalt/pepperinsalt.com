@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      sftp_password:
+        description: "IONOS SFTP password"
+        required: false
+        default: ""
 
 jobs:
   deploy:
@@ -38,7 +43,7 @@ jobs:
         with:
           server: access-5020375910.webspace-host.com
           username: a1267584
-          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          password: ${{ inputs.sftp_password || secrets.IONOS_SFTP_PASSWORD }}
           port: 22
           protocol: sftp
           local-dir: ./dist/public/
